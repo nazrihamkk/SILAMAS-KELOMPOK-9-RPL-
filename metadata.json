@@ -1,0 +1,6 @@
+{
+  "name": "SILAMAS - Sistem Informasi Manajemen Layanan dan Administrasi Masjid Palu Timur",
+  "description": "Sistem Informasi Manajemen Layanan dan Administrasi Masjid (SILAMAS) berbasis web untuk pendataan masjid, perlengkapan fasilitas, kepengurusan masjid, agenda kegiatan, peminjaman fasilitas, dan layanan jemaah.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
