@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+!data/
+!data/silamas_db.json
+!data/SILAMAS_10_Masjid_Terbaik.csv

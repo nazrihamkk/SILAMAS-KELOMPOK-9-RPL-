@@ -147,6 +147,28 @@ apiRouter.get('/auth/me', authenticate, (req: AuthRequest, res: Response) => {
   });
 });
 
+apiRouter.get('/health', (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    message: 'Layanan backend SILAMAS aktif.',
+    data: {
+      status: 'ok',
+      totalMasjid: db.listMasjids().length,
+    },
+  });
+});
+
+apiRouter.post('/sync', authenticate, (req: AuthRequest, res: Response) => {
+  const snapshot = req.body;
+  if (snapshot && typeof snapshot === 'object') {
+    db.syncState(snapshot);
+  }
+  res.json({
+    success: true,
+    message: 'Sinkronisasi data berhasil.',
+  });
+});
+
 apiRouter.post('/seed/reset', (req: Request, res: Response) => {
   db.resetToSeed();
   res.json({
@@ -169,9 +191,9 @@ apiRouter.get('/stats', (req: Request, res: Response) => {
 });
 
 // ==========================================
-// 3. MASTER MASJID
+// 3. MASTER MASJID (/api/masjids & /api/masjid)
 // ==========================================
-apiRouter.get('/masjid', (req: Request, res: Response) => {
+apiRouter.get(['/masjids', '/masjid'], (req: Request, res: Response) => {
   const q = typeof req.query.q === 'string' ? req.query.q : undefined;
   const kelurahan = typeof req.query.kelurahan === 'string' ? req.query.kelurahan : undefined;
   const data = db.listMasjids({ q, kelurahan });
@@ -183,7 +205,7 @@ apiRouter.get('/masjid', (req: Request, res: Response) => {
   });
 });
 
-apiRouter.get('/masjid/:id', (req: Request, res: Response) => {
+apiRouter.get(['/masjids/:id', '/masjid/:id'], (req: Request, res: Response) => {
   const { id } = req.params;
   const masjid = db.getMasjidById(id);
   if (!masjid) {
@@ -212,7 +234,7 @@ apiRouter.get('/masjid/:id', (req: Request, res: Response) => {
   });
 });
 
-apiRouter.post('/masjid', authenticate, requireRole(['admin']), (req: AuthRequest, res: Response) => {
+apiRouter.post(['/masjids', '/masjid'], authenticate, requireRole(['admin']), (req: AuthRequest, res: Response) => {
   const {
     nama_masjid,
     alamat,
@@ -321,7 +343,7 @@ apiRouter.post('/masjid', authenticate, requireRole(['admin']), (req: AuthReques
   });
 });
 
-apiRouter.put('/masjid/:id', authenticate, (req: AuthRequest, res: Response) => {
+apiRouter.put(['/masjids/:id', '/masjid/:id'], authenticate, (req: AuthRequest, res: Response) => {
   const { id } = req.params;
 
   if (req.user?.role === 'pengurus' && req.user.id_masjid !== id) {
@@ -388,7 +410,7 @@ apiRouter.put('/masjid/:id', authenticate, (req: AuthRequest, res: Response) => 
   });
 });
 
-apiRouter.delete('/masjid/:id', authenticate, requireRole(['admin']), (req: AuthRequest, res: Response) => {
+apiRouter.delete(['/masjids/:id', '/masjid/:id'], authenticate, requireRole(['admin']), (req: AuthRequest, res: Response) => {
   const { id } = req.params;
   const deleted = db.deleteMasjid(id);
   if (!deleted) {

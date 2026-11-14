@@ -22,8 +22,21 @@ import {
 } from './types.js';
 import { getInitialSeedData } from './seedData.js';
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
-const DB_FILE = path.join(DATA_DIR, 'silamas_db.json');
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const CANDIDATE_DB_PATHS = [
+  path.join('/tmp', 'silamas_db.json'),
+  path.resolve(process.cwd(), 'data', 'silamas_db.json'),
+  path.resolve(__dirname, '../../data/silamas_db.json'),
+  path.resolve(__dirname, '../data/silamas_db.json'),
+];
+
+const PRIMARY_DATA_DIR = path.resolve(process.cwd(), 'data');
+const PRIMARY_DB_FILE = path.join(PRIMARY_DATA_DIR, 'silamas_db.json');
+const TMP_DB_FILE = path.join('/tmp', 'silamas_db.json');
 
 class Database {
   private data: DatabaseSchema;
@@ -34,54 +47,108 @@ class Database {
     this.init();
   }
 
+  private findReadableDbFile(): string | null {
+    // On Vercel serverless, prefer /tmp if already written during warm invocation, else bundled data/silamas_db.json
+    const pathsToCheck = process.env.VERCEL
+      ? CANDIDATE_DB_PATHS
+      : [PRIMARY_DB_FILE, ...CANDIDATE_DB_PATHS];
+
+    for (const candidate of pathsToCheck) {
+      try {
+        if (fs.existsSync(candidate)) {
+          return candidate;
+        }
+      } catch {
+        // Ignore permission errors on candidate path
+      }
+    }
+    return null;
+  }
+
+  private ensureSeedIntegrity(parsed: Partial<DatabaseSchema>): DatabaseSchema {
+    const seed = getInitialSeedData();
+    const users = Array.isArray(parsed.users) && parsed.users.length > 0 ? [...parsed.users] : [...seed.users];
+
+    // Ensure default admin and pengurus accounts always exist
+    for (const seedUser of seed.users) {
+      if (!users.some((u) => u.username.toLowerCase() === seedUser.username.toLowerCase())) {
+        users.push(seedUser);
+      }
+    }
+
+    const masjids =
+      Array.isArray(parsed.masjids) && parsed.masjids.length > 0 && parsed.masjids[0].latitude !== undefined
+        ? parsed.masjids
+        : seed.masjids;
+
+    return {
+      schema_version: 2,
+      users,
+      masjids,
+      fasilitas: Array.isArray(parsed.fasilitas) && parsed.fasilitas.length > 0 ? parsed.fasilitas : seed.fasilitas,
+      pengurus: Array.isArray(parsed.pengurus) && parsed.pengurus.length > 0 ? parsed.pengurus : seed.pengurus,
+      kegiatan: Array.isArray(parsed.kegiatan) && parsed.kegiatan.length > 0 ? parsed.kegiatan : seed.kegiatan,
+      pengumuman: Array.isArray(parsed.pengumuman) && parsed.pengumuman.length > 0 ? parsed.pengumuman : seed.pengumuman,
+      peminjaman: Array.isArray(parsed.peminjaman) && parsed.peminjaman.length > 0 ? parsed.peminjaman : seed.peminjaman,
+      layanan: Array.isArray(parsed.layanan) && parsed.layanan.length > 0 ? parsed.layanan : seed.layanan,
+      riwayat: Array.isArray(parsed.riwayat) && parsed.riwayat.length > 0 ? parsed.riwayat : seed.riwayat,
+    };
+  }
+
   private init() {
     try {
-      if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
-      }
-
-      if (fs.existsSync(DB_FILE)) {
-        const raw = fs.readFileSync(DB_FILE, 'utf-8');
-        const parsed = JSON.parse(raw) as DatabaseSchema;
-
-        // Auto-upgrade to schema_version 2 (10 verified CSV mosques with geospatial coordinates)
-        if (parsed.schema_version !== 2 || !parsed.masjids || parsed.masjids.length === 0 || parsed.masjids[0].latitude === undefined) {
-          this.data = getInitialSeedData();
-          this.save();
-        } else {
-          this.data = {
-            schema_version: 2,
-            users: parsed.users || [],
-            masjids: parsed.masjids || [],
-            fasilitas: parsed.fasilitas || [],
-            pengurus: parsed.pengurus || [],
-            kegiatan: parsed.kegiatan || [],
-            pengumuman: parsed.pengumuman || [],
-            peminjaman: parsed.peminjaman || [],
-            layanan: parsed.layanan || [],
-            riwayat: parsed.riwayat || [],
-          };
-        }
+      const readableFile = this.findReadableDbFile();
+      if (readableFile) {
+        const raw = fs.readFileSync(readableFile, 'utf-8');
+        const parsed = JSON.parse(raw) as Partial<DatabaseSchema>;
+        this.data = this.ensureSeedIntegrity(parsed);
       } else {
         this.data = getInitialSeedData();
         this.save();
       }
       this.isInitialized = true;
     } catch (err) {
-      console.error('Error initializing database file, fallback to in-memory:', err);
+      console.warn('Database fallback to embedded verified seed data:', err);
       this.data = getInitialSeedData();
+      this.isInitialized = true;
     }
   }
 
   private save() {
-    try {
-      if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
+    const serialized = JSON.stringify(this.data, null, 2);
+
+    // In local / standard server environment, write to data/silamas_db.json
+    if (!process.env.VERCEL) {
+      try {
+        if (!fs.existsSync(PRIMARY_DATA_DIR)) {
+          fs.mkdirSync(PRIMARY_DATA_DIR, { recursive: true });
+        }
+        fs.writeFileSync(PRIMARY_DB_FILE, serialized, 'utf-8');
+        return;
+      } catch {
+        // Fallback to /tmp if primary directory is read-only
       }
-      fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf-8');
-    } catch (err) {
-      console.error('Error writing database to disk:', err);
     }
+
+    // In Vercel serverless or read-only filesystem, write to /tmp/silamas_db.json
+    try {
+      fs.writeFileSync(TMP_DB_FILE, serialized, 'utf-8');
+    } catch {
+      // Keep in-memory state if /tmp is also unavailable
+    }
+  }
+
+  public getFullState(): DatabaseSchema {
+    return this.data;
+  }
+
+  public syncState(snapshot: Partial<DatabaseSchema>): DatabaseSchema {
+    this.data = this.ensureSeedIntegrity({
+      ...this.data,
+      ...snapshot,
+    });
+    this.save();
+    return this.data;
   }
 
   public resetToSeed(): DatabaseSchema {

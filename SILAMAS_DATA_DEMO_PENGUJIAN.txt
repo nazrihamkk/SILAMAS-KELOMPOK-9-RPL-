@@ -8,11 +8,6 @@ IDENTITAS PENGEMBANG — KELOMPOK 9:
 2. Nazril Ilham Kakame   — F5512510026
 3. Giri Ariska Putri     — F5512510035
 
-Catatan Keamanan Antarmuka:
-Seluruh tombol masuk otomatis (1-klik demo login) dan contoh kode pengajuan telah
-dihapus dari halaman publik agar tampilan website bersih, profesional, dan layak
-digunakan secara nyata. Gunakan data di bawah ini untuk pengujian fitur.
-
 --------------------------------------------------------------------------------
 1. AKUN LOGIN RUANG PENGURUS & ADMINISTRATOR (MENU: MASUK PENGURUS)
 --------------------------------------------------------------------------------
