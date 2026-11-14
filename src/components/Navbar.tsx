@@ -15,7 +15,7 @@ export const Navbar: React.FC<Props> = ({ currentView, setCurrentView }) => {
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Zone 1: Brand Wordmark (SILAMAS only, no Palu Timur) */}
+          {/* Identitas Utama SILAMAS */}
           <button
             onClick={() => setCurrentView('home')}
             className="flex items-center gap-2.5 text-left focus:outline-hidden"
@@ -32,7 +32,7 @@ export const Navbar: React.FC<Props> = ({ currentView, setCurrentView }) => {
             </div>
           </button>
 
-          {/* Zone 2: Navigation Links (Clear, parent-friendly labels) */}
+          {/* Tautan Navigasi Utama */}
           <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
             <button
               onClick={() => setCurrentView('home')}
@@ -78,7 +78,7 @@ export const Navbar: React.FC<Props> = ({ currentView, setCurrentView }) => {
             </button>
           </nav>
 
-          {/* Zone 3: Actions */}
+          {/* Tombol Aksi Pengurus */}
           <div className="flex items-center gap-3">
             {user ? (
               <div className="flex items-center gap-2">
@@ -109,7 +109,7 @@ export const Navbar: React.FC<Props> = ({ currentView, setCurrentView }) => {
           </div>
         </div>
 
-        {/* Mobile secondary navigation */}
+        {/* Navigasi layar perangkat seluler */}
         <div className="flex md:hidden overflow-x-auto py-2.5 gap-4 text-xs font-medium border-t border-slate-100 no-scrollbar">
           <button
             onClick={() => setCurrentView('home')}

@@ -26,7 +26,7 @@ function validateCoordinates(latRaw: any, lngRaw: any): { valid: boolean; lat: n
     };
   }
 
-  // Detect swapped coordinates (e.g. Latitude entered as 119.87 and Longitude entered as -0.90)
+  // Deteksi koordinat tertukar (misalnya nilai Latitude diisi 119.87 dan Longitude diisi -0.90)
   if (Math.abs(lat) > 90 && Math.abs(lng) <= 90) {
     return {
       valid: false,
@@ -45,7 +45,7 @@ function validateCoordinates(latRaw: any, lngRaw: any): { valid: boolean; lat: n
     };
   }
 
-  // Check if someone swapped lat/lng within smaller numbers (e.g. Indonesia lat is between -11 and +6, lng is between 95 and 141)
+  // Periksa kemungkinan koordinat lintang dan bujur wilayah Indonesia yang tertukar
   if (lat > 50 && lng < 50) {
     return {
       valid: false,
@@ -59,7 +59,7 @@ function validateCoordinates(latRaw: any, lngRaw: any): { valid: boolean; lat: n
 }
 
 // ==========================================
-// 1. AUTHENTICATION & PROFILE
+// 1. AUTENTIKASI & PROFIL PENGGUNA
 // ==========================================
 apiRouter.post('/auth/login', (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -990,7 +990,7 @@ apiRouter.get('/laporan/rekap', authenticate, (req: AuthRequest, res: Response) 
 });
 
 // ==========================================
-// 11. MANAJEMEN USER (ADMIN ONLY)
+// 11. MANAJEMEN AKUN PENGGUNA (KHUSUS ADMIN)
 // ==========================================
 apiRouter.get('/users', authenticate, requireRole(['admin']), (req: AuthRequest, res: Response) => {
   const users = db.listUsers();

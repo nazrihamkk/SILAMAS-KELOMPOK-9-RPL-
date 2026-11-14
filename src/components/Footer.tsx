@@ -9,7 +9,7 @@ export const Footer: React.FC<Props> = ({ setCurrentView }) => {
     <footer className="bg-slate-900 text-slate-400 text-sm border-t border-slate-800 no-print">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Col 1 */}
+          {/* Informasi Sistem & Tim Pengembang */}
           <div className="space-y-4 md:col-span-2">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
@@ -31,7 +31,7 @@ export const Footer: React.FC<Props> = ({ setCurrentView }) => {
             </div>
           </div>
 
-          {/* Col 2 */}
+          {/* Tautan Cepat Layanan */}
           <div>
             <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">Menu Layanan Umat</h4>
             <ul className="space-y-2 text-xs">
@@ -58,7 +58,7 @@ export const Footer: React.FC<Props> = ({ setCurrentView }) => {
             </ul>
           </div>
 
-          {/* Col 3 */}
+          {/* Daftar Wilayah */}
           <div>
             <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider mb-3">Wilayah Terdaftar</h4>
             <div className="space-y-1.5 text-xs text-slate-400">

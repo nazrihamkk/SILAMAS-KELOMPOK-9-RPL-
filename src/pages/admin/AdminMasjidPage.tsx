@@ -335,7 +335,7 @@ export const AdminMasjidPage: React.FC = () => {
         </div>
       )}
 
-      {/* Top Bar */}
+      {/* Bilah Pencarian dan Filter Atas */}
       <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
           <h2 className="font-extrabold text-lg text-slate-900">
@@ -381,7 +381,7 @@ export const AdminMasjidPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Interactive Overview Map */}
+      {/* Peta Sebaran Lokasi Masjid */}
       <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
@@ -397,7 +397,7 @@ export const AdminMasjidPage: React.FC = () => {
         <MosqueMap masjids={filteredMasjid} height="340px" showExternalButtons={false} />
       </div>
 
-      {/* Cards Grid */}
+      {/* Daftar Kartu Masjid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {filteredMasjid.map((m) => {
           const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${m.latitude},${m.longitude}`;
@@ -518,7 +518,7 @@ export const AdminMasjidPage: React.FC = () => {
         })}
       </div>
 
-      {/* Delete Confirmation Modal */}
+      {/* Jendela Konfirmasi Hapus Masjid */}
       {deleteConfirmId && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-md w-full p-6 border border-slate-200 shadow-2xl">
@@ -549,7 +549,7 @@ export const AdminMasjidPage: React.FC = () => {
         </div>
       )}
 
-      {/* Add / Edit Masjid Modal with Geospatial Picker & Mandatory Preview */}
+      {/* Jendela Tambah / Edit Masjid beserta Pemilih Titik Peta & Pratinjau Wajib */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl my-8 max-h-[92vh] overflow-y-auto">
@@ -586,7 +586,7 @@ export const AdminMasjidPage: React.FC = () => {
 
             {!showPreviewStep ? (
               <form onSubmit={handleProceedToPreview} className="space-y-6">
-                {/* Interactive Location Picker Section (MANDATORY) */}
+                {/* Bagian Pemilihan Titik Lokasi Peta (WAJIB) */}
                 <div className="bg-emerald-50/70 border-2 border-emerald-300 rounded-2xl p-4 sm:p-5 space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
@@ -626,7 +626,7 @@ export const AdminMasjidPage: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Quick Wilayah Pin Selector */}
+                  {/* Pilihan Cepat Titik Wilayah */}
                   <div className="bg-white/90 p-3 rounded-xl border border-emerald-200/80 space-y-2">
                     <span className="text-[11px] font-bold text-emerald-950 block">
                       Pilihan Cepat Wilayah (Klik untuk mengarahkan penanda peta ke wilayah masjid):
@@ -718,7 +718,7 @@ export const AdminMasjidPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Main Identity Fields */}
+                {/* Input Data Identitas Utama Masjid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="sm:col-span-2">
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
@@ -865,7 +865,7 @@ export const AdminMasjidPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Photo Upload / URL Section */}
+                {/* Bagian Unggah File atau Tautan URL Foto */}
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
@@ -991,7 +991,7 @@ export const AdminMasjidPage: React.FC = () => {
                 </div>
               </form>
             ) : (
-              /* STEP 2: MANDATORY PREVIEW & CONFIRMATION BEFORE SAVE */
+              /* TAHAP 2: PRATINJAU WAJIB & KONFIRMASI SEBELUM SIMPAN */
               <div className="space-y-6">
                 <div className="p-4 rounded-2xl bg-emerald-950 text-white flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
@@ -1014,7 +1014,7 @@ export const AdminMasjidPage: React.FC = () => {
                   </button>
                 </div>
 
-                {/* Preview Map */}
+                {/* Peta Pratinjau Titik Lokasi */}
                 <div className="space-y-2">
                   <p className="text-xs font-bold uppercase tracking-wider text-slate-700">
                     Pratinjau Peta Titik Lokasi Masjid ({form.latitude.toFixed(6)},{' '}
@@ -1049,7 +1049,7 @@ export const AdminMasjidPage: React.FC = () => {
                   />
                 </div>
 
-                {/* Summary Table */}
+                {/* Ringkasan Data Masjid */}
                 <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                   <div>
                     <span className="text-slate-400 block">Nama Masjid</span>
@@ -1086,7 +1086,7 @@ export const AdminMasjidPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Mandatory Confirmation Checkbox */}
+                {/* Kotak Centang Konfirmasi Wajib */}
                 <label className="flex items-start gap-3 p-4 rounded-2xl bg-amber-50 border border-amber-300 cursor-pointer">
                   <input
                     type="checkbox"

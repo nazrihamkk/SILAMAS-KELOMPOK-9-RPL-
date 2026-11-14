@@ -71,7 +71,7 @@ export const AdminPeminjamanPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      {/* Header */}
+      {/* Bagian Judul Halaman */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
@@ -83,7 +83,7 @@ export const AdminPeminjamanPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Toolbar */}
+      {/* Bilah Pencarian dan Filter */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center gap-3">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
@@ -109,7 +109,7 @@ export const AdminPeminjamanPage: React.FC = () => {
         </select>
       </div>
 
-      {/* Table */}
+      {/* Tabel Permohonan Peminjaman */}
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
@@ -179,7 +179,7 @@ export const AdminPeminjamanPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Disposisi / Verification Modal */}
+      {/* Jendela Pemeriksaan & Verifikasi */}
       {selectedItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
@@ -208,7 +208,7 @@ export const AdminPeminjamanPage: React.FC = () => {
                 </div>
               )}
 
-              {/* Readonly info */}
+              {/* Ringkasan Data Pemohon */}
               <div className="bg-slate-50 p-3.5 rounded-xl text-xs space-y-1.5 border border-slate-100">
                 <p>Pemohon: <strong className="text-slate-900">{selectedItem.nama_pemohon}</strong> ({selectedItem.kontak_pemohon})</p>
                 <p>Fasilitas: <strong className="text-slate-900">{selectedItem.nama_fasilitas}</strong> · {selectedItem.nama_masjid}</p>

@@ -64,7 +64,7 @@ export const AdminUsersPage: React.FC = () => {
     setFormData({
       nama: item.nama,
       username: item.username,
-      password: '', // leave empty if not changing
+      password: '', // dikosongkan jika kata sandi tidak diubah
       role: item.role,
       id_masjid: item.id_masjid || '',
       status_akun: item.status_akun || 'Aktif',
@@ -124,7 +124,7 @@ export const AdminUsersPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      {/* Header */}
+      {/* Bagian Judul Halaman */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
@@ -144,7 +144,7 @@ export const AdminUsersPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Toolbar */}
+      {/* Bilah Pencarian */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
@@ -158,7 +158,7 @@ export const AdminUsersPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Table */}
+      {/* Tabel Daftar Akun Pengguna */}
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
@@ -236,7 +236,7 @@ export const AdminUsersPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Modal Add / Edit */}
+      {/* Jendela Tambah / Edit Pengguna */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
@@ -372,7 +372,7 @@ export const AdminUsersPage: React.FC = () => {
         </div>
       )}
 
-      {/* Delete Modal */}
+      {/* Jendela Konfirmasi Hapus */}
       <ConfirmationModal
         isOpen={!!deleteTarget}
         title="Hapus Akun Pengguna"

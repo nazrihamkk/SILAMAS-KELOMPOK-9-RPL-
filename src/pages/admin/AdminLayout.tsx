@@ -58,7 +58,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col lg:flex-row">
-      {/* Sidebar */}
+      {/* Menu Samping */}
       <aside className="w-full lg:w-64 bg-emerald-950 text-slate-200 flex flex-col shrink-0 border-r border-emerald-900 print:hidden">
         <div className="p-5 border-b border-emerald-900/80 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -76,7 +76,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           </div>
         </div>
 
-        {/* User Badge */}
+        {/* Informasi Pengguna Aktif */}
         {user && (
           <div className="p-4 mx-3 my-3 rounded-2xl bg-emerald-900/60 border border-emerald-800/80">
             <span className="inline-block px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase tracking-wider mb-1">
@@ -87,7 +87,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           </div>
         )}
 
-        {/* Menu */}
+        {/* Daftar Menu Navigasi */}
         <nav className="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
           {visibleItems.map((item) => {
             const active = activeModule === item.id;
@@ -108,7 +108,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           })}
         </nav>
 
-        {/* Bottom Actions */}
+        {/* Tombol Aksi Bawah */}
         <div className="p-3 border-t border-emerald-900/80 space-y-1.5">
           {user?.role === 'admin' && (
             <button
@@ -139,7 +139,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         </div>
       </aside>
 
-      {/* Main Content */}
+      {/* Konten Utama */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="bg-white border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4 print:hidden">
           <div>

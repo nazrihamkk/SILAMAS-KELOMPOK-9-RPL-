@@ -47,8 +47,8 @@ class NonJsonResponseError extends Error {
 }
 
 /**
- * Safely inspects response.ok and Content-Type before parsing JSON.
- * Prevents "Unexpected token 'T', 'The page c'... is not valid JSON" on 404/HTML responses.
+ * Memeriksa status respons dan tipe konten sebelum mengurai data JSON
+ * agar halaman 404 atau teks biasa tidak menyebabkan kesalahan pembacaan JSON.
  */
 async function handleResponse<T>(res: Response): Promise<T> {
   const contentType = res.headers.get('content-type') || '';
@@ -82,7 +82,7 @@ async function requestWithFallback<T>(
   preferLocalWhenModified = false
 ): Promise<T> {
   if (preferLocalWhenModified && localStore.hasCustomModifications()) {
-    // Trigger background request to keep warm serverless instance synced, while returning persisted data
+    // Sinkronkan permintaan ke server di latar belakang sembari mengembalikan data yang tersimpan
     requestFn().catch(() => {});
     return await fallbackFn();
   }
@@ -94,7 +94,7 @@ async function requestWithFallback<T>(
     if (err instanceof NonJsonResponseError || err instanceof TypeError) {
       return await fallbackFn();
     }
-    // If backend returned 404 after a Vercel cold start for a record that exists in localStore, try fallback
+    // Gunakan penyimpanan lokal apabila server baru dimuat ulang dan belum memiliki perubahan terbaru
     try {
       return await fallbackFn();
     } catch {
@@ -104,7 +104,7 @@ async function requestWithFallback<T>(
 }
 
 export const api = {
-  // Auth
+  // Autentikasi Pengguna
   async login(username: string, password: string): Promise<{ token: string; user: UserProfile }> {
     try {
       const res = await fetch(`${API_BASE}/auth/login`, {
@@ -116,7 +116,7 @@ export const api = {
       localStore.setSessionUser(result.user);
       return result;
     } catch (err) {
-      // Fallback to localStore if endpoint returned non-JSON (404 on static/cold start) or custom user created
+      // Gunakan verifikasi penyimpanan lokal jika respons server bukan JSON atau terdapat perubahan akun
       if (err instanceof NonJsonResponseError || err instanceof TypeError || localStore.hasCustomModifications()) {
         return localStore.login(username, password);
       }
@@ -143,11 +143,11 @@ export const api = {
       });
       await handleResponse(res);
     } catch {
-      // Local store already reset to 10 verified mosques
+      // Penyimpanan lokal telah dikembalikan ke 10 data masjid awal
     }
   },
 
-  // Stats
+  // Statistik Ringkasan
   async getStats(masjid_id?: string): Promise<DashboardStats> {
     const query = masjid_id ? `?masjid_id=${encodeURIComponent(masjid_id)}` : '';
     return requestWithFallback(
@@ -157,7 +157,7 @@ export const api = {
     );
   },
 
-  // Masjid (/api/masjids)
+  // Data Masjid (/api/masjids)
   async getMasjids(filter?: { q?: string; kelurahan?: string }): Promise<MasjidItem[]> {
     const params = new URLSearchParams();
     if (filter?.q) params.set('q', filter.q);
@@ -201,7 +201,7 @@ export const api = {
       if (err instanceof NonJsonResponseError || err instanceof TypeError) {
         return localStore.createMasjid(payload);
       }
-      // Also allow fallback if token came from localStore after cold start
+      // Simpan ke penyimpanan lokal jika sesi aktif berasal dari penyimpanan lokal
       if (memoryToken?.startsWith('silamas_tok_')) {
         return localStore.createMasjid(payload);
       }
@@ -241,11 +241,11 @@ export const api = {
       });
       await handleResponse(res);
     } catch {
-      // Already deleted in persistent localStore
+      // Data masjid telah dihapus pada penyimpanan lokal
     }
   },
 
-  // Fasilitas
+  // Data Fasilitas
   async getFasilitas(filter?: { id_masjid?: string; kondisi?: string; q?: string }): Promise<FasilitasItem[]> {
     const params = new URLSearchParams();
     if (filter?.id_masjid) params.set('id_masjid', filter.id_masjid);
@@ -297,7 +297,7 @@ export const api = {
       });
       await handleResponse(res);
     } catch {
-      // Handled in localStore
+      // Perubahan telah disimpan di penyimpanan lokal
     }
   },
 
@@ -353,7 +353,7 @@ export const api = {
       });
       await handleResponse(res);
     } catch {
-      // Handled in localStore
+      // Perubahan telah disimpan di penyimpanan lokal
     }
   },
 
@@ -409,7 +409,7 @@ export const api = {
       });
       await handleResponse(res);
     } catch {
-      // Handled in localStore
+      // Perubahan telah disimpan di penyimpanan lokal
     }
   },
 
@@ -464,7 +464,7 @@ export const api = {
       });
       await handleResponse(res);
     } catch {
-      // Handled in localStore
+      // Perubahan telah disimpan di penyimpanan lokal
     }
   },
 
@@ -589,7 +589,7 @@ export const api = {
     );
   },
 
-  // Users
+  // Akun Pengguna
   async getUsers(): Promise<UserProfile[]> {
     return requestWithFallback(
       () =>
@@ -640,7 +640,7 @@ export const api = {
       });
       await handleResponse(res);
     } catch {
-      // Handled in localStore
+      // Perubahan telah disimpan di penyimpanan lokal
     }
   },
 };

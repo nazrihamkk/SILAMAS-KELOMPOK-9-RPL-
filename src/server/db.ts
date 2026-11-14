@@ -48,7 +48,7 @@ class Database {
   }
 
   private findReadableDbFile(): string | null {
-    // On Vercel serverless, prefer /tmp if already written during warm invocation, else bundled data/silamas_db.json
+    // Pada lingkungan serverless, utamakan berkas di /tmp jika sudah diperbarui, lalu berkas bawaan data/silamas_db.json
     const pathsToCheck = process.env.VERCEL
       ? CANDIDATE_DB_PATHS
       : [PRIMARY_DB_FILE, ...CANDIDATE_DB_PATHS];
@@ -59,7 +59,7 @@ class Database {
           return candidate;
         }
       } catch {
-        // Ignore permission errors on candidate path
+        // Abaikan kendala izin baca pada jalur alternatif
       }
     }
     return null;
@@ -69,7 +69,7 @@ class Database {
     const seed = getInitialSeedData();
     const users = Array.isArray(parsed.users) && parsed.users.length > 0 ? [...parsed.users] : [...seed.users];
 
-    // Ensure default admin and pengurus accounts always exist
+    // Pastikan akun bawaan administrator dan pengurus selalu tersedia
     for (const seedUser of seed.users) {
       if (!users.some((u) => u.username.toLowerCase() === seedUser.username.toLowerCase())) {
         users.push(seedUser);
@@ -108,7 +108,7 @@ class Database {
       }
       this.isInitialized = true;
     } catch (err) {
-      console.warn('Database fallback to embedded verified seed data:', err);
+      console.warn('Menggunakan data awal bawaan karena berkas basis data belum terbaca:', err);
       this.data = getInitialSeedData();
       this.isInitialized = true;
     }
@@ -117,7 +117,7 @@ class Database {
   private save() {
     const serialized = JSON.stringify(this.data, null, 2);
 
-    // In local / standard server environment, write to data/silamas_db.json
+    // Pada server lokal, simpan perubahan langsung ke data/silamas_db.json
     if (!process.env.VERCEL) {
       try {
         if (!fs.existsSync(PRIMARY_DATA_DIR)) {
@@ -126,15 +126,15 @@ class Database {
         fs.writeFileSync(PRIMARY_DB_FILE, serialized, 'utf-8');
         return;
       } catch {
-        // Fallback to /tmp if primary directory is read-only
+        // Gunakan /tmp jika direktori utama tidak mengizinkan penulisan
       }
     }
 
-    // In Vercel serverless or read-only filesystem, write to /tmp/silamas_db.json
+    // Pada lingkungan serverless dengan sistem berkas baca-saja, simpan ke /tmp/silamas_db.json
     try {
       fs.writeFileSync(TMP_DB_FILE, serialized, 'utf-8');
     } catch {
-      // Keep in-memory state if /tmp is also unavailable
+      // Pertahankan data di memori jika penyimpanan sementara tidak tersedia
     }
   }
 
@@ -157,7 +157,7 @@ class Database {
     return this.data;
   }
 
-  // ===== USERS =====
+  // ===== PENGGUNA =====
   public findUserByUsername(username: string): User | undefined {
     return this.data.users.find((u) => u.username.toLowerCase() === username.toLowerCase());
   }
@@ -250,7 +250,7 @@ class Database {
       const existAddr = existing.alamat.trim().toLowerCase();
       const existKel = existing.kelurahan.trim().toLowerCase();
 
-      // 1. Check duplicate name + address or name + kelurahan
+      // 1. Periksa duplikasi nama dan alamat atau kelurahan masjid
       if (existName === cleanName && (existAddr === cleanAddr || (cleanKel && existKel === cleanKel))) {
         return {
           valid: false,
@@ -258,7 +258,7 @@ class Database {
         };
       }
 
-      // 2. Check duplicate exact or near-identical coordinates (~5 meters)
+      // 2. Periksa duplikasi titik koordinat yang sama atau sangat berdekatan (~5 meter)
       const latDiff = Math.abs(existing.latitude - payload.latitude);
       const lngDiff = Math.abs(existing.longitude - payload.longitude);
       if (latDiff < 0.00005 && lngDiff < 0.00005) {
@@ -268,7 +268,7 @@ class Database {
         };
       }
 
-      // 3. Check duplicate photo from another mosque
+      // 3. Periksa duplikasi foto dari masjid lain
       if (cleanPhoto && existing.foto_url && existing.foto_url.trim() === cleanPhoto) {
         return {
           valid: false,
@@ -281,7 +281,7 @@ class Database {
   }
 
   public createMasjid(payload: Omit<Masjid, 'id_masjid' | 'created_at' | 'updated_at'>): Masjid {
-    // Generate unique ID
+    // Buat kode unik masjid baru secara berurutan
     const existingNums = this.data.masjids
       .map((m) => parseInt(m.id_masjid.replace('MSJ-', ''), 10))
       .filter((n) => !isNaN(n));
@@ -297,7 +297,7 @@ class Database {
     };
     this.data.masjids.push(masjid);
 
-    // Sync fasilitas_ringkas into fasilitas table if provided
+    // Sinkronkan fasilitas ringkas ke daftar fasilitas masjid
     if (payload.fasilitas_ringkas) {
       const items = payload.fasilitas_ringkas
         .split(/[;,]/)
@@ -328,7 +328,7 @@ class Database {
       });
     }
 
-    // Sync nama_pengurus_utama into pengurus table if provided
+    // Sinkronkan nama pengurus utama ke daftar pengurus masjid
     if (
       payload.nama_pengurus_utama &&
       payload.nama_pengurus_utama.trim() !== '' &&
@@ -800,7 +800,7 @@ class Database {
     return this.data.layanan[idx];
   }
 
-  // ===== STATS & AGGREGATIONS =====
+  // ===== STATISTIK & RINGKASAN DATA =====
   public getDashboardStats(userMasjidId?: string | null) {
     const masjids = this.data.masjids;
     let filteredFasilitas = this.data.fasilitas;

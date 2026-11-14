@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Request logger for API routes
+// Pencatat aktivitas permintaan ke jalur API
 app.use((req, _res, next) => {
   if (req.url.startsWith('/api')) {
     console.log(`[${req.method}] ${req.url}`);
@@ -29,7 +29,7 @@ app.use((req, _res, next) => {
   next();
 });
 
-// Serve SILAMAS_DATA_DEMO_PENGUJIAN.txt directly if requested
+// Melayani unduhan berkas panduan pengujian sistem jika diakses langsung
 app.get('/SILAMAS_DATA_DEMO_PENGUJIAN.txt', (_req, res) => {
   const candidates = [
     path.resolve(process.cwd(), 'public', 'SILAMAS_DATA_DEMO_PENGUJIAN.txt'),
@@ -47,10 +47,10 @@ app.get('/SILAMAS_DATA_DEMO_PENGUJIAN.txt', (_req, res) => {
   res.status(404).send('File data demo pengujian tidak ditemukan.');
 });
 
-// Mount REST API routes under /api
+// Mendaftarkan seluruh rute REST API pada jalur /api
 app.use('/api', apiRouter);
 
-// Catch-all JSON 404 for unmatched /api/* routes so frontend never receives HTML/text on /api
+// Penanganan rute /api yang tidak ditemukan agar selalu mengembalikan format JSON
 app.use('/api', (req: Request, res: Response) => {
   res.status(404).json({
     success: false,
@@ -58,10 +58,10 @@ app.use('/api', (req: Request, res: Response) => {
   });
 });
 
-// Global JSON error handler for API requests
+// Penanganan kesalahan terpusat khusus permintaan API
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (req.url.startsWith('/api')) {
-    console.error('API Error:', err);
+    console.error('Kesalahan API:', err);
     res.status(err?.status || 500).json({
       success: false,
       message: err?.message || 'Terjadi kesalahan internal pada server SILAMAS.',
@@ -93,14 +93,14 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`SILAMAS Server running on http://0.0.0.0:${PORT}`);
+    console.log(`Server SILAMAS berjalan pada http://0.0.0.0:${PORT}`);
   });
 }
 
-// Only start listening on a port when not running inside Vercel Serverless Functions
+// Menjalankan server lokal/mandiri apabila tidak berjalan di lingkungan serverless Vercel
 if (!process.env.VERCEL) {
   startServer().catch((err) => {
-    console.error('Failed to start server:', err);
+    console.error('Gagal menjalankan server:', err);
     process.exit(1);
   });
 }

@@ -63,7 +63,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onNaviga
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      {/* Stat Cards */}
+      {/* Kartu Statistik Ringkasan */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div
           onClick={() => onNavigateModule('masjid')}
@@ -149,9 +149,9 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onNaviga
         </div>
       </div>
 
-      {/* Recent Submissions */}
+      {/* Daftar Permohonan Terbaru */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Pending Peminjaman */}
+        {/* Permohonan Peminjaman Fasilitas */}
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2.5">
@@ -220,7 +220,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onNaviga
           )}
         </div>
 
-        {/* Pending Layanan */}
+        {/* Permohonan Layanan Jemaah */}
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2.5">

@@ -97,7 +97,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      {/* Navigation breadcrumb */}
+      {/* Tombol kembali ke daftar masjid */}
       <button
         onClick={onBack}
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
@@ -106,7 +106,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
         <span>Kembali ke Daftar Masjid</span>
       </button>
 
-      {/* Hero Header Profile (Without Skor Kelengkapan Data or Raw Coordinates) */}
+      {/* Kepala Profil Utama Masjid */}
       <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs">
         <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white p-6 sm:p-10 relative">
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -130,7 +130,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
               </div>
             </div>
 
-            {/* External Google Maps & Directions CTA Buttons in Header */}
+            {/* Tombol Google Maps & Petunjuk Arah */}
             <div className="flex flex-wrap items-center gap-2.5 shrink-0">
               <a
                 href={googleMapsUrl}
@@ -154,7 +154,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Balanced 4-Card Quick Facts Strip (Replaced Coordinates with Fasilitas Utama) */}
+        {/* Empat Kartu Ringkasan Informasi Utama */}
         <div className="p-6 bg-slate-50 border-b border-slate-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
           <div className="bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col justify-between">
             <span className="text-slate-500 block">Kapasitas Jemaah</span>
@@ -182,7 +182,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Action Bar */}
+        {/* Bilah Kontak & Tombol Layanan */}
         <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600">
             {masjid.telepon && masjid.telepon !== '-' && (
@@ -217,11 +217,11 @@ export const MasjidDetailPage: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Photo & Description + Interactive Map Grid */}
+      {/* Kolom Foto, Deskripsi, dan Peta Lokasi Interaktif */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        {/* Left Column: Photo (or Official SILAMAS Logo Default) & Description */}
+        {/* Kolom Kiri: Foto & Deskripsi Masjid */}
         <div className="lg:col-span-5 flex flex-col gap-6">
-          {/* Photo Card or Official SILAMAS Logo Default */}
+          {/* Kartu Foto Masjid atau Ikon Masjid Bawaan */}
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
             {hasUploadedPhoto ? (
               <div className="relative h-60 bg-slate-900">
@@ -245,7 +245,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
             )}
           </div>
 
-          {/* Description & Facilities Summary */}
+          {/* Deskripsi & Ringkasan Fasilitas */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex-1 flex flex-col justify-between space-y-5">
             <div>
               <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
@@ -276,7 +276,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Right Column: Interactive Map */}
+        {/* Kolom Kanan: Peta Lokasi Interaktif */}
         <div className="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
@@ -300,7 +300,7 @@ export const MasjidDetailPage: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Detailed Tabs */}
+      {/* Tab Rincian Informasi Masjid */}
       <div className="space-y-4">
         <div className="flex items-center gap-4 border-b border-slate-200 overflow-x-auto no-scrollbar">
           <button

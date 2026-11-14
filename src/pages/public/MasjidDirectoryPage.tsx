@@ -61,7 +61,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      {/* Header */}
+      {/* Kepala Halaman */}
       <div className="border-b border-slate-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 uppercase tracking-wider">
@@ -77,7 +77,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
           </p>
         </div>
 
-        {/* View Switcher buttons */}
+        {/* Tombol Pengaturan Tampilan */}
         <div className="flex items-center gap-2 self-start md:self-auto">
           <button
             onClick={() => setShowMapOverview(!showMapOverview)}
@@ -114,10 +114,10 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
         </div>
       </div>
 
-      {/* Filter and Search Bar */}
+      {/* Bilah Pencarian dan Filter */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {/* Search box */}
+          {/* Kolom pencarian */}
           <div className="relative sm:col-span-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
             <input
@@ -129,7 +129,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
             />
           </div>
 
-          {/* Kelurahan/Wilayah select */}
+          {/* Pilihan wilayah/kelurahan */}
           <div>
             <select
               value={kelurahan}
@@ -144,7 +144,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
             </select>
           </div>
 
-          {/* Kapasitas filter */}
+          {/* Filter kapasitas jemaah */}
           <div>
             <select
               value={minKapasitas}
@@ -159,7 +159,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
           </div>
         </div>
 
-        {/* Filter Reset Bar */}
+        {/* Tombol Atur Ulang Filter */}
         {(search || kelurahan !== 'Semua' || minKapasitas > 0) && (
           <div className="flex items-center justify-end text-xs text-slate-500 pt-1 border-t border-slate-100">
             <button
@@ -176,7 +176,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
         )}
       </div>
 
-      {/* Interactive Map Overview */}
+      {/* Peta Sebaran Lokasi Masjid */}
       {showMapOverview && !loading && filtered.length > 0 && (
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -198,7 +198,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
         </div>
       )}
 
-      {/* Main Listing */}
+      {/* Daftar Masjid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -225,7 +225,7 @@ export const MasjidDirectoryPage: React.FC<Props> = ({ onSelectMasjid, onPinjamM
           ))}
         </div>
       ) : (
-        /* Table View (Without Raw Coordinates Column) */
+        /* Tampilan Tabel Daftar Masjid */
         <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">

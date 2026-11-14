@@ -103,7 +103,7 @@ B. Contoh Pengisian Formulir "Layanan Jemaah":
 --------------------------------------------------------------------------------
 
 1. Buka menu "Daftar Masjid" untuk melihat seluruh 10 masjid terverifikasi dari
-   dataset SILAMAS_10_Masjid_Terbaik.csv beserta peta sebaran interaktif.
+   dataset SILAMAS_10_Masjid.csv beserta peta sebaran interaktif.
 2. Klik salah satu kartu masjid untuk membuka halaman profil detail, memeriksa
    titik lokasi pada peta, serta menguji tombol "Buka di Google Maps" dan
    "Petunjuk Arah".

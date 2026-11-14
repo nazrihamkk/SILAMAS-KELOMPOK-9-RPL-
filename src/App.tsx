@@ -11,7 +11,7 @@ import { Navbar } from './components/Navbar.js';
 import { Footer } from './components/Footer.js';
 import { NotificationToast, ToastMessage } from './components/NotificationToast.js';
 
-// Public pages
+// Halaman publik
 import { HomePage } from './pages/public/HomePage.js';
 import { MasjidDirectoryPage } from './pages/public/MasjidDirectoryPage.js';
 import { MasjidDetailPage } from './pages/public/MasjidDetailPage.js';
@@ -20,7 +20,7 @@ import { LayananPage } from './pages/public/LayananPage.js';
 import { TrackingPage } from './pages/public/TrackingPage.js';
 import { LoginPage } from './pages/public/LoginPage.js';
 
-// Admin pages
+// Halaman administrasi & pengurus
 import { AdminLayout } from './pages/admin/AdminLayout.js';
 import { AdminDashboardPage } from './pages/admin/AdminDashboardPage.js';
 import { AdminMasjidPage } from './pages/admin/AdminMasjidPage.js';
@@ -37,13 +37,13 @@ import { api } from './services/api.js';
 function MainApp() {
   const { user } = useAuth();
 
-  // Navigation State
+  // Status navigasi halaman aktif
   const [currentView, setCurrentView] = useState<'home' | 'direktori' | 'detail' | 'peminjaman' | 'layanan' | 'tracking' | 'login' | 'admin'>('home');
   const [selectedMasjidId, setSelectedMasjidId] = useState<string>('MSJ-001');
   const [trackingCode, setTrackingCode] = useState<string>('');
   const [adminModule, setAdminModule] = useState<string>('dashboard');
 
-  // Toasts
+  // Daftar pesan notifikasi
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const addToast = (text: string, type: 'success' | 'error' | 'info' = 'success') => {
@@ -70,7 +70,7 @@ function MainApp() {
     }
   };
 
-  // If currently in Admin view, render admin layout
+  // Tampilkan tata letak Ruang Pengurus apabila berada pada mode administrasi
   if (currentView === 'admin') {
     if (!user) {
       setCurrentView('login');
@@ -101,12 +101,12 @@ function MainApp() {
     );
   }
 
-  // Otherwise, render Public Layout
+  // Tampilan utama untuk pengunjung publik
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
       <NotificationToast toasts={toasts} onDismiss={removeToast} />
 
-      {/* Top Navbar */}
+      {/* Navigasi Atas */}
       <Navbar
         currentView={currentView}
         setCurrentView={(view) => {
@@ -119,7 +119,7 @@ function MainApp() {
         }}
       />
 
-      {/* Dynamic Public Pages */}
+      {/* Konten Halaman Publik */}
       <main className="flex-1">
         {currentView === 'home' && (
           <HomePage
@@ -219,7 +219,7 @@ function MainApp() {
         )}
       </main>
 
-      {/* Footer */}
+      {/* Kaki Halaman */}
       <Footer
         setCurrentView={(view) => {
           setCurrentView(view as any);

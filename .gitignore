@@ -8,4 +8,4 @@ coverage/
 !.env.example
 !data/
 !data/silamas_db.json
-!data/SILAMAS_10_Masjid_Terbaik.csv
+!data/SILAMAS_10_Masjid.csv

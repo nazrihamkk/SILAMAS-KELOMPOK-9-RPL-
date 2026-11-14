@@ -38,7 +38,7 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
 
   const hasUploadedPhoto = Boolean(masjid.foto_url && masjid.foto_url.trim() !== '');
 
-  // Concise wilayah name without "Kelurahan" prefix
+  // Nama wilayah ringkas tanpa awalan kata "Kelurahan"
   const wilayahRingkas = (masjid.kelurahan || '')
     .replace(/^kelurahan\s+/i, '')
     .replace(/^kel\.\s*/i, '')
@@ -46,7 +46,7 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden group">
-      {/* Visual Header: Manual Photo if uploaded, otherwise Centered Mosque Icon Only */}
+      {/* Bagian Sampul: Menampilkan foto masjid jika tersedia, atau ikon masjid di tengah */}
       <div className="h-44 bg-gradient-to-br from-emerald-900 via-emerald-800 to-slate-900 relative overflow-hidden flex flex-col justify-between p-4">
         {hasUploadedPhoto ? (
           <>
@@ -60,7 +60,7 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
         ) : (
           <>
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
-            {/* Centered Mosque Icon Only (No SILAMAS text) */}
+            {/* Ikon masjid sebagai gambar bawaan di tengah area sampul */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/15 flex items-center justify-center text-emerald-100 shadow-sm group-hover:scale-105 transition-transform duration-300">
                 <svg className="w-9 h-9 fill-current" viewBox="0 0 24 24">
@@ -72,7 +72,7 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
           </>
         )}
 
-        {/* Top Bar: Left = Kode Masjid, Right = Nama Wilayah Ringkas (tanpa kata Kelurahan) */}
+        {/* Baris Atas: Kiri = Kode Masjid, Kanan = Nama Wilayah Ringkas */}
         <div className="relative z-10 flex items-center justify-between gap-2 w-full">
           <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-slate-950/60 text-slate-200 backdrop-blur-xs border border-white/15">
             {masjid.id_masjid}
@@ -84,7 +84,7 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
           )}
         </div>
 
-        {/* Bottom Title inside Cover */}
+        {/* Judul Nama Masjid pada Sampul */}
         <div className="relative z-10 w-full pt-2">
           <h3 className="text-lg font-bold text-white tracking-tight leading-snug line-clamp-1 group-hover:text-emerald-100 transition-colors">
             {masjid.nama_masjid}
@@ -92,7 +92,7 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
         </div>
       </div>
 
-      {/* Content Area */}
+      {/* Bagian Isi Informasi Kartu */}
       <div className="p-5 flex-1 flex flex-col justify-between">
         <div className="space-y-3">
           <div className="flex items-start gap-2 text-xs text-slate-600">
@@ -104,12 +104,12 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
             {masjid.deskripsi}
           </p>
 
-          {/* Facilities preview line */}
+          {/* Ringkasan Fasilitas Utama */}
           <div className="text-[11px] text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100 line-clamp-1">
             <strong className="text-slate-700">Fasilitas Utama:</strong> {fasilitasPreview}
           </div>
 
-          {/* Metadata row: Kapasitas & Pengurus */}
+          {/* Informasi Kapasitas & Pengurus */}
           <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600">
             <div className="flex items-center gap-1.5" title="Kapasitas Jemaah">
               <Users className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -125,7 +125,7 @@ export const MosqueCard: React.FC<Props> = ({ masjid, onSelect, onPinjam }) => {
           </div>
         </div>
 
-        {/* Action Row */}
+        {/* Tombol Tindakan Kartu */}
         <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
           <button
             onClick={() => onSelect(masjid.id_masjid)}

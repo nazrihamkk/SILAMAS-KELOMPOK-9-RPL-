@@ -58,7 +58,7 @@ function loadStore(): DatabaseSchema {
       return seed;
     }
 
-    // Ensure default accounts always exist
+    // Pastikan akun bawaan selalu tersedia
     const users = Array.isArray(parsed.users) && parsed.users.length > 0 ? [...parsed.users] : [...seed.users];
     for (const su of seed.users) {
       if (!users.some((u) => u.username.toLowerCase() === su.username.toLowerCase())) {
@@ -88,7 +88,7 @@ function saveStore(data: DatabaseSchema): void {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch {
-    // Ignore quota errors
+    // Abaikan jika kapasitas penyimpanan browser penuh
   }
 }
 
@@ -127,7 +127,7 @@ export const localStore = {
     return activeUserSession;
   },
 
-  // ===== AUTH =====
+  // ===== AUTENTIKASI =====
   login(username: string, password: string): { token: string; user: UserProfile } {
     const data = loadStore();
     if (!username || !password) {
@@ -173,13 +173,13 @@ export const localStore = {
         activeUserSession = parsed;
         return parsed;
       } catch {
-        // Invalid token format
+        // Format token tidak sesuai
       }
     }
     throw new Error('Sesi pengguna tidak aktif.');
   },
 
-  // ===== STATS =====
+  // ===== STATISTIK =====
   getStats(masjidId?: string): DashboardStats {
     const data = loadStore();
     const masjids = data.masjids;
@@ -235,7 +235,7 @@ export const localStore = {
     };
   },
 
-  // ===== MASJIDS =====
+  // ===== DATA MASJID =====
   getMasjids(filter?: { q?: string; kelurahan?: string }): MasjidItem[] {
     const data = loadStore();
     let result = data.masjids;
@@ -322,7 +322,7 @@ export const localStore = {
       updated_at: now,
     };
 
-    // Avoid duplicate ID if syncing from backend response
+    // Perbarui jika kode masjid sudah ada saat sinkronisasi dengan respons server
     const existingIdx = data.masjids.findIndex((m) => m.id_masjid === created.id_masjid);
     if (existingIdx >= 0) {
       data.masjids[existingIdx] = created;
@@ -883,7 +883,7 @@ export const localStore = {
     };
   },
 
-  // ===== USERS =====
+  // ===== AKUN PENGGUNA =====
   getUsers(): UserProfile[] {
     const data = loadStore();
     return data.users.map(({ password_hash: _, ...u }) => u);

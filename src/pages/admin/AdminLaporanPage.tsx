@@ -196,7 +196,7 @@ export const AdminLaporanPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      {/* Action & Filter Bar (Hidden during print) */}
+      {/* Bilah Filter dan Tombol Unduh/Cetak (Disembunyikan saat dicetak) */}
       <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden">
         <div>
           <h2 className="font-extrabold text-lg text-slate-900">
@@ -251,9 +251,9 @@ export const AdminLaporanPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Printable Neutral Data Summary Document */}
+      {/* Dokumen Ringkasan Data Siap Cetak */}
       <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-xs print:shadow-none print:border-none print:p-0">
-        {/* Clean Neutral Header (Zero Government / KUA / Kop Surat Attributes) */}
+        {/* Bagian Kepala Dokumen Ringkasan */}
         <div className="border-b-2 border-emerald-900 pb-6 mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <span className="inline-block px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-900 text-[11px] font-bold uppercase tracking-wider mb-2">
@@ -287,7 +287,7 @@ export const AdminLaporanPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Summary Metrics */}
+        {/* Ringkasan Angka Utama */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
             <p className="text-xs text-slate-500">Masjid Terdata</p>
@@ -318,7 +318,7 @@ export const AdminLaporanPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Table 1: Master Mosque Summary */}
+        {/* Tabel 1: Ringkasan Data Utama Masjid */}
         <div className="mb-8">
           <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-3">
             I. Tabel Ringkasan Profil, Lokasi, Fasilitas, dan Pengurus Masjid
@@ -412,7 +412,7 @@ export const AdminLaporanPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Table 2: Summary of Applications & Services */}
+        {/* Tabel 2: Ringkasan Permohonan Pinjam & Layanan */}
         <div className="mb-8">
           <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-3">
             II. Ringkasan Permohonan Pinjam Perlengkapan & Layanan Jemaah
@@ -465,7 +465,7 @@ export const AdminLaporanPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Mandatory Neutral Disclaimer Box */}
+        {/* Kotak Keterangan Dokumen Sistem */}
         <div className="p-4 rounded-2xl bg-slate-50 border border-slate-300 flex items-start gap-3 text-xs text-slate-700">
           <Info className="w-5 h-5 text-emerald-800 shrink-0 mt-0.5" />
           <div>

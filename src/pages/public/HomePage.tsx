@@ -75,7 +75,7 @@ export const HomePage: React.FC<Props> = ({
 
   return (
     <div className="space-y-14 pb-16">
-      {/* 1. Hero Section */}
+      {/* 1. Bagian Utama (Hero) */}
       <section className="relative bg-gradient-to-b from-emerald-950 via-slate-900 to-slate-950 text-white pt-16 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#34d399_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
@@ -94,7 +94,7 @@ export const HomePage: React.FC<Props> = ({
             Portal informasi masjid untuk melihat daftar masjid, perlengkapan fasilitas, jadwal kegiatan ibadah, serta mengajukan peminjaman fasilitas dan layanan jemaah dengan mudah.
           </p>
 
-          {/* Quick Status Check Search Bar (Clean, no demo codes shown) */}
+          {/* Kolom Pencarian Cepat Kode Pengajuan */}
           <div className="pt-4 max-w-xl mx-auto">
             <div className="bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/20 shadow-2xl flex flex-col sm:flex-row items-center gap-2">
               <div className="flex items-center gap-2 px-3 flex-1 w-full">
@@ -128,7 +128,7 @@ export const HomePage: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Highlight Stats Row */}
+        {/* Baris Ringkasan Statistik */}
         {stats && (
           <div className="max-w-6xl mx-auto mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-xs">
@@ -163,7 +163,7 @@ export const HomePage: React.FC<Props> = ({
         )}
       </section>
 
-      {/* 2. Quick Action Cards */}
+      {/* 2. Kartu Akses Layanan Cepat */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-emerald-300 transition-colors">
@@ -225,7 +225,7 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* 3. Mosque Listing Section ("Masjid Terdaftar") */}
+      {/* 3. Bagian Daftar Masjid Terdaftar */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-5">
           <div>
@@ -240,7 +240,7 @@ export const HomePage: React.FC<Props> = ({
             </p>
           </div>
 
-          {/* Search Input */}
+          {/* Kolom Pencarian Masjid */}
           <div className="w-full md:w-80">
             <div className="relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
@@ -255,7 +255,7 @@ export const HomePage: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Wilayah/Kelurahan Filter Segmented Controls */}
+        {/* Tombol Filter Wilayah/Kelurahan */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-2 no-scrollbar">
           {kelurahanList.map((kel) => (
             <button
@@ -272,7 +272,7 @@ export const HomePage: React.FC<Props> = ({
           ))}
         </div>
 
-        {/* Mosques Grid */}
+        {/* Daftar Kartu Masjid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[1, 2, 3].map((n) => (
@@ -309,7 +309,7 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* 4. Kegiatan & Pengumuman Grid */}
+      {/* 4. Jadwal Kegiatan & Pengumuman */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Kegiatan Terdekat */}
@@ -384,7 +384,7 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* 5. Alur Layanan Banner */}
+      {/* 5. Informasi Alur Pelayanan */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-emerald-900 to-teal-900 text-white rounded-2xl p-8 shadow-sm">
           <div className="max-w-3xl space-y-3">

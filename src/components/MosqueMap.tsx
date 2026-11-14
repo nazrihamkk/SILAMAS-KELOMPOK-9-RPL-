@@ -219,7 +219,7 @@ export const MosqueMap: React.FC<MosqueMapProps> = ({
 };
 
 // ============================================================================
-// INTERACTIVE LOCATION PICKER FOR ADMIN TAMBAH / EDIT MASJID
+// PEMILIH LOKASI INTERAKTIF UNTUK FORMULIR TAMBAH / EDIT MASJID
 // ============================================================================
 interface MapLocationPickerProps {
   latitude: number;

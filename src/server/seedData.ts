@@ -254,7 +254,7 @@ export function getInitialSeedData(): DatabaseSchema {
   const adminPasswordHash = bcrypt.hashSync('admin123', salt);
   const pengurusPasswordHash = bcrypt.hashSync('pengurus123', salt);
 
-  // Build Fasilitas from the exact semicolon-separated items in the CSV
+  // Menyusun daftar fasilitas berdasarkan rincian fasilitas pada data CSV
   const generatedFasilitas: Fasilitas[] = [];
   let fasCounter = 1;
 
@@ -296,7 +296,7 @@ export function getInitialSeedData(): DatabaseSchema {
     });
   });
 
-  // Build Pengurus list from CSV recorded pengurus
+  // Menyusun daftar pengurus berdasarkan nama pengurus utama pada data CSV
   const generatedPengurus: Pengurus[] = [];
   let pgrCounter = 1;
   VERIFIED_10_MASJIDS.forEach((m) => {

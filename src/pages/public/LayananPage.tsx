@@ -111,7 +111,7 @@ export const LayananPage: React.FC<LayananPageProps> = ({
   return (
     <div className="min-h-screen bg-slate-50 py-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        {/* Kepala Halaman Layanan */}
         <div className="bg-emerald-950 rounded-3xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
           <div className="relative z-10">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-800/70 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3">

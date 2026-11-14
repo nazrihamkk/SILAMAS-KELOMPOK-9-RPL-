@@ -124,7 +124,7 @@ export const AdminPengumumanPage: React.FC = () => {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      {/* Header */}
+      {/* Bagian Judul Halaman */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
@@ -144,7 +144,7 @@ export const AdminPengumumanPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Toolbar */}
+      {/* Bilah Pencarian dan Filter */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center gap-3">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
@@ -170,7 +170,7 @@ export const AdminPengumumanPage: React.FC = () => {
         </select>
       </div>
 
-      {/* Cards list */}
+      {/* Daftar Kartu Pengumuman */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.map((p) => (
           <div key={p.id_pengumuman} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
@@ -213,7 +213,7 @@ export const AdminPengumumanPage: React.FC = () => {
         )}
       </div>
 
-      {/* Modal Add / Edit */}
+      {/* Jendela Tambah / Edit Pengumuman */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
@@ -335,7 +335,7 @@ export const AdminPengumumanPage: React.FC = () => {
         </div>
       )}
 
-      {/* Delete Modal */}
+      {/* Jendela Konfirmasi Hapus */}
       <ConfirmationModal
         isOpen={!!deleteTarget}
         title="Hapus Pengumuman"

@@ -132,7 +132,7 @@ export const PeminjamanPage: React.FC<PeminjamanPageProps> = ({
   return (
     <div className="min-h-screen bg-slate-50 py-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        {/* Kepala Halaman Formulir */}
         <div className="bg-emerald-950 rounded-3xl p-8 text-white mb-8 relative overflow-hidden shadow-lg">
           <div className="relative z-10">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-800/70 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3">
@@ -218,7 +218,7 @@ export const PeminjamanPage: React.FC<PeminjamanPageProps> = ({
               </div>
             )}
 
-            {/* Step 1: Pilih Masjid & Fasilitas */}
+            {/* Langkah 1: Pilih Masjid & Fasilitas */}
             <div>
               <h3 className="text-sm font-bold uppercase tracking-wider text-emerald-800 mb-4 flex items-center gap-2">
                 <Building2 className="w-4 h-4" /> 1. Pilih Masjid & Perlengkapan
@@ -277,7 +277,7 @@ export const PeminjamanPage: React.FC<PeminjamanPageProps> = ({
 
             <hr className="border-slate-200" />
 
-            {/* Step 2: Identitas Pemohon */}
+            {/* Langkah 2: Identitas Pemohon */}
             <div>
               <h3 className="text-sm font-bold uppercase tracking-wider text-emerald-800 mb-4 flex items-center gap-2">
                 <User className="w-4 h-4" /> 2. Data Diri Pemohon
@@ -357,7 +357,7 @@ export const PeminjamanPage: React.FC<PeminjamanPageProps> = ({
 
             <hr className="border-slate-200" />
 
-            {/* Step 3: Detail & Waktu Peminjaman */}
+            {/* Langkah 3: Detail & Waktu Peminjaman */}
             <div>
               <h3 className="text-sm font-bold uppercase tracking-wider text-emerald-800 mb-4 flex items-center gap-2">
                 <Calendar className="w-4 h-4" /> 3. Jadwal & Keperluan Peminjaman
